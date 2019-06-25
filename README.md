@@ -1,3 +1,3 @@
 # swingset
 
-Dan Atiyawijitr's self-project
+Dan's self-project
