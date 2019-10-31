@@ -1,29 +1,33 @@
 'use strict';
 
-angular.module('Authentication')
-
-.factory('AuthenticationService',
-    ['Base64', '$http', '$cookieStore', '$rootScope', '$timeout',
-    function (Base64, $http, $cookieStore, $rootScope, $timeout) {
+angular
+    .module('Authentication')
+    .factory('AuthenticationService',
+    ['Base64', '$http', '$cookieStore', '$rootScope',
+    function (Base64, $http, $cookieStore, $rootScope) {
         var service = {};
-
         service.Login = function (username, password, callback) {
-        
-                var response = { success: username === 'test' && password === 'test' };
-                if (!response.success) {
-                    response.message = 'Username or password is incorrect';
-                }
-                callback(response);
+                $http({
+                    method: 'GET',                
+                    url: "https://coda.io/apis/v1beta1/docs/ozj52aClzb/tables/grid-OzYH7L45PF/rows",
+                    headers: {"authorization": 'Bearer '+'09197407-859e-4cc7-95dd-140014d80e1d'},
+                  }).then(function (response) {
+                      callback(response);
+           
+                      //$scope.myWelcome = angular.fromJson(response.data.items);
+                  })
+            };                
             
+        //     var response = { success: username === 'a' && password === 'a' };
 
-            //$http({
-            //    url: "https://coda.io/apis/v1beta1/docs/ozj52aClzb/tables/grid-OzYH7L45PF/rows",
-            //    method: 'GET',
-            //    headers: {"authorization": 'Bearer '+'09197407-859e-4cc7-95dd-140014d80e1d'} 
-            //}).success(function (response) {
-            //    callback(response); 
-            //});
-        };
+        //         if (!response.success) {
+        //            response.message = 'Username or password is incorrect';
+                   
+        //         }
+        //         callback(response);
+
+        //           })
+        // };
 
         service.SetCredentials = function (username, password) {
             var authdata = Base64.encode(username + ':' + password);
